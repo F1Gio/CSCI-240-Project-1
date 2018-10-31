@@ -1,0 +1,16 @@
+			.ORIG	x3000			;Start are x3000
+			
+			AND 	R0, R0, #0		;Clear R0
+			GETC					;Get Character(Binary value)
+			ADD		R1, R0, #0		;Store R0 into R1, R1 will be the binary value
+			AND 	R0, R0, #0		;Clear R0
+			GETC					;Get character(Integer value)
+			
+CHECK		BRp		SHIFTBITS		;Checks to see if all bits have shifted left if not repeat loop
+
+SHIFTBITS	ADD 	R1, R1, R1		;Adds R1 to itself and stores it in R1
+			ADD 	R0, R0, #-1		;Decrements R0 by -1
+			BRp		CHECK			;Checks to see if R0 is still a positive value 		
+
+			TRAP 	x25				;Ends program when all instrctions are complete 
+			
